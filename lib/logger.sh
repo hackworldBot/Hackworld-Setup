@@ -2,39 +2,77 @@
 
 # ==========================================
 # Hackworld Setup
-# logger.sh
-# Gestion des journaux
+# Logger Library
 # ==========================================
 
-LOG_DIR="logs"
 LOG_FILE="${LOG_DIR}/install.log"
 
+# Création du dossier de logs
 mkdir -p "${LOG_DIR}"
+
+# Création du fichier si nécessaire
 touch "${LOG_FILE}"
 
-timestamp() {
+# ==========================================
+# Horodatage
+# ==========================================
+
+log_timestamp() {
+
     date +"%Y-%m-%d %H:%M:%S"
+
 }
 
-log() {
+# ==========================================
+# Fonction interne
+# ==========================================
+
+log_write() {
+
     local level="$1"
     shift
 
-    echo "[$(timestamp)] [$level] $*" >>"${LOG_FILE}"
+    printf "[%s] [%s] %s\n" \
+        "$(log_timestamp)" \
+        "${level}" \
+        "$*" >> "${LOG_FILE}"
+
 }
 
+# ==========================================
+# API Publique
+# ==========================================
+
 log_info() {
-    log INFO "$@"
+
+    log_write "INFO" "$@"
+
 }
 
 log_success() {
-    log SUCCESS "$@"
+
+    log_write "SUCCESS" "$@"
+
 }
 
 log_warning() {
-    log WARNING "$@"
+
+    log_write "WARNING" "$@"
+
 }
 
 log_error() {
-    log ERROR "$@"
+
+    log_write "ERROR" "$@"
+
+}
+
+# ==========================================
+# Nettoyage du log
+# ==========================================
+
+log_clear() {
+
+    : > "${LOG_FILE}"
+
 }

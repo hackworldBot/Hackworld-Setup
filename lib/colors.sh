@@ -2,12 +2,11 @@
 
 # ==========================================
 # Hackworld Setup
-# colors.sh
-# Gestion des couleurs et de l'affichage
+# Colors Library
 # ==========================================
-source "$(dirname "${BASH_SOURCE[0]}")/logger.sh"
 
-# Couleurs
+# ---------- Couleurs ----------
+
 RED="\033[0;31m"
 GREEN="\033[0;32m"
 YELLOW="\033[1;33m"
@@ -19,28 +18,53 @@ WHITE="\033[1;37m"
 BOLD="\033[1m"
 RESET="\033[0m"
 
-# Icônes
-OK="✔"
-ERROR="✘"
-WARN="⚠"
-INFO="ℹ"
+# ---------- Icônes ----------
 
-success() {
-    echo -e "${GREEN}${OK} $1${RESET}"
-    log_success "$1"
+ICON_SUCCESS="✔"
+ICON_ERROR="✘"
+ICON_WARNING="⚠"
+ICON_INFO="ℹ"
+
+# ---------- Interface ----------
+
+ui_title() {
+
+    echo
+
+    echo -e "${BLUE}${BOLD}============================================================${RESET}"
+    echo -e "${WHITE}${BOLD} $1${RESET}"
+    echo -e "${BLUE}${BOLD}============================================================${RESET}"
+
+    echo
+
 }
 
-error() {
-    echo -e "${RED}${ERROR} $1${RESET}"
-    log_error "$1"
+ui_success() {
+
+    echo -e "${GREEN}${ICON_SUCCESS}${RESET} $1"
+
 }
 
-warning() {
-    echo -e "${YELLOW}${WARN} $1${RESET}"
-    log_warning "$1"
+ui_error() {
+
+    echo -e "${RED}${ICON_ERROR}${RESET} $1"
+
 }
 
-info() {
-    echo -e "${CYAN}${INFO} $1${RESET}"
-    log_info "$1"
+ui_warning() {
+
+    echo -e "${YELLOW}${ICON_WARNING}${RESET} $1"
+
+}
+
+ui_info() {
+
+    echo -e "${CYAN}${ICON_INFO}${RESET} $1"
+
+}
+
+separator() {
+
+    echo "------------------------------------------------------------"
+
 }
