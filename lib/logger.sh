@@ -20,7 +20,7 @@ log() {
     local level="$1"
     shift
 
-    echo "[$(timestamp)] [$level] $*" >> "${LOG_FILE}"
+    echo "[$(timestamp)] [$level] $*" >>"${LOG_FILE}"
 }
 
 log_info() {
